@@ -1,0 +1,1 @@
+class SnmpException(Exception): pass
