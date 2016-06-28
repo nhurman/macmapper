@@ -46,7 +46,7 @@ def walk(host, community, *oids):
   return ret
 
 def get(host, community, *oids):
-  cmdGen = cmdgen.CommandGenerator()  
+  cmdGen = cmdgen.CommandGenerator()
   errorIndication, errorStatus, errorIndex, varBindTable = cmdGen.getCmd(
       cmdgen.CommunityData(community),
       cmdgen.UdpTransportTarget((host, 161)),
@@ -75,6 +75,6 @@ def to_scalar(values):
       except (ValueError, TypeError):
         value = str(value)
     if not isinstance(name, str):
-      name = str(name.getOid())
+      name = name.prettyPrint()
     ret[name] = value
   return ret

@@ -4,7 +4,7 @@ from .exception import SnmpException
 def get_mac_table(host, community):
   oid = '.1.3.6.1.2.1.17.7.1.2.2.1.2'
 
-  cmdGen = cmdgen.CommandGenerator()  
+  cmdGen = cmdgen.CommandGenerator()
   errorIndication, errorStatus, errorIndex, varBindTable = cmdGen.bulkCmd(
       cmdgen.CommunityData(community),
       cmdgen.UdpTransportTarget((host, 161)),
@@ -20,7 +20,7 @@ def get_mac_table(host, community):
   mac_table = []
   for varBindTableRow in varBindTable:
     for name, val in varBindTableRow:
-      bits = str(name.getOid())[len(oid):].split('.')
+      bits = name.prettyPrint()[len(oid):].split('.')
       vlan = bits.pop(0)
       address = ':'.join(['{0:02x}'.format(int(x)) for x in bits])
 
